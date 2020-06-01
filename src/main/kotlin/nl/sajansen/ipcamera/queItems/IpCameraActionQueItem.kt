@@ -5,15 +5,12 @@ import nl.sajansen.ipcamera.cameras.Camera
 import nl.sajansen.ipcamera.cameras.DahuaCamera
 import objects.notifications.Notifications
 import objects.que.JsonQue
-import plugins.common.BasePlugin
-import plugins.common.QueItem
-import java.net.HttpURLConnection
-import java.net.URL
-import java.util.*
+import objects.que.QueItem
+import java.awt.Color
 import java.util.logging.Logger
 
 class IpCameraActionQueItem(
-    override val plugin: BasePlugin,
+    override val plugin: IpCameraPlugin,
     override val name: String,
     val camera: Camera,
     val actionUrl: String
@@ -34,6 +31,7 @@ class IpCameraActionQueItem(
     }
 
     override var executeAfterPrevious = false
+    override var quickAccessColor: Color? = plugin.quickAccessColor
 
     override fun renderText(): String = name
 

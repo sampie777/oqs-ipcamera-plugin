@@ -27,14 +27,15 @@ class IpCameraActionQueItemTest {
         val plugin = IpCameraPlugin()
         val camera = plugin.cameras.first()
         val jsonQueItem = JsonQue.QueItem(
-            "IpCameraPlugin",
-            "IpCameraActionQueItem",
-            "preset 1",
-            false,
-            hashMapOf(
-                "camera" to camera.name,
-                "actionUrl" to "/actionurl"
-            )
+                "IpCameraPlugin",
+                "IpCameraActionQueItem",
+                "preset 1",
+                false,
+                null,
+                hashMapOf(
+                        "camera" to camera.name,
+                        "actionUrl" to "/actionurl"
+                )
         )
         val queItem = IpCameraActionQueItem.fromJson(plugin, jsonQueItem)
 
@@ -51,6 +52,7 @@ class IpCameraActionQueItemTest {
         try {
             queItem.activate()
             fail("Expected NotImplementedError to be thrown")
-        } catch (e: NotImplementedError) {}
+        } catch (e: NotImplementedError) {
+        }
     }
 }

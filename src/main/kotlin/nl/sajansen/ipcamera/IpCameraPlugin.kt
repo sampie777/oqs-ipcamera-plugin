@@ -4,8 +4,9 @@ import nl.sajansen.ipcamera.cameras.Camera
 import nl.sajansen.ipcamera.cameras.DahuaCamera
 import nl.sajansen.ipcamera.queItems.IpCameraActionQueItem
 import objects.que.JsonQue
-import plugins.common.QueItem
+import objects.que.QueItem
 import plugins.common.QueItemBasePlugin
+import java.awt.Color
 import java.net.URL
 import java.util.logging.Logger
 import javax.swing.Icon
@@ -21,6 +22,8 @@ class IpCameraPlugin : QueItemBasePlugin {
     override val icon: Icon? = createImageIcon("/nl/sajansen/ipcamera/icon-14.png")
 
     override val tabName: String = "IP Camera"
+
+    internal val quickAccessColor = Color(229, 255, 247)
 
     val cameras = listOf(DahuaCamera() as Camera)
 
@@ -40,7 +43,7 @@ class IpCameraPlugin : QueItemBasePlugin {
     }
 
     private fun createImageIcon(path: String): ImageIcon? {
-        val imgURL: URL? = IpCameraPlugin::class.java.getResource(path)
+        val imgURL = IpCameraPlugin::class.java.getResource(path)
         if (imgURL != null) {
             return ImageIcon(imgURL)
         }
