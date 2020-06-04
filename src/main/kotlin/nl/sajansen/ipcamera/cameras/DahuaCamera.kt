@@ -19,6 +19,7 @@ class DahuaCamera : Camera {
     override val password: String = "admin"
     override val ipAddress: String = "192.168.88.100"
     override val port: String = ""
+    private val connectionTimeout = 5000
 
     override fun toString() = name
 
@@ -95,8 +96,8 @@ class DahuaCamera : Camera {
         val authentication = Base64.getEncoder().encodeToString("$username:$password".toByteArray())
 
         val connection = urlObject.openConnection() as HttpURLConnection
-        connection.connectTimeout = 2000
-        connection.readTimeout = 2000
+        connection.connectTimeout = connectionTimeout
+        connection.readTimeout = connectionTimeout
         connection.setRequestProperty("Authorization", "Basic $authentication")
         connection.requestMethod = "GET"
 

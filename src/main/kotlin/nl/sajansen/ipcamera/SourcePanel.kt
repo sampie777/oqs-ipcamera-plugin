@@ -1,16 +1,19 @@
 package nl.sajansen.ipcamera
 
 import nl.sajansen.ipcamera.cameras.Camera
+import gui.utils.DefaultSourcesList
+import objects.notifications.Notifications
 import themes.Theme
 import java.awt.*
+import java.util.logging.Logger
 import javax.swing.*
-import javax.swing.border.CompoundBorder
 import javax.swing.border.EmptyBorder
 
 class SourcePanel(private val plugin: IpCameraPlugin) : JPanel() {
+    private val logger = Logger.getLogger(SourcePanel::class.java.name)
 
     val cameraSelect = JComboBox<Camera>()
-    val cameraPresetList = JList<CameraPreset>()
+    val cameraPresetList = DefaultSourcesList<CameraPreset>()
 
     init {
         initGui()
@@ -26,25 +29,26 @@ class SourcePanel(private val plugin: IpCameraPlugin) : JPanel() {
         cameraSelect.addActionListener { loadCameraPresets() }
         add(cameraSelect, BorderLayout.PAGE_START)
 
-        cameraPresetList.selectionMode = ListSelectionModel.SINGLE_SELECTION
-        cameraPresetList.dragEnabled = true
         cameraPresetList.transferHandler = PresetQueItemTransferHandler(plugin, cameraSelect)
-        cameraPresetList.font = Font("Dialog", Font.PLAIN, 14)
-        cameraPresetList.cursor = Cursor(Cursor.HAND_CURSOR)
-        cameraPresetList.border = CompoundBorder(
-            BorderFactory.createMatteBorder(0, 1, 1, 1, Color(180, 180, 180)),
-            EmptyBorder(10, 10, 0, 10)
-        )
 
         val scrollPanelInnerPanel = JPanel(BorderLayout())
         scrollPanelInnerPanel.add(cameraPresetList, BorderLayout.PAGE_START)
         val scrollPanel = JScrollPane(scrollPanelInnerPanel)
-        scrollPanel.border = null
+        scrollPanel.border = BorderFactory.createMatteBorder(0, 1, 1, 1, Color(180, 180, 180))
         add(scrollPanel, BorderLayout.CENTER)
     }
 
     private fun loadCameraPresets() {
         val selectedCamera = cameraSelect.selectedItem as Camera
-        cameraPresetList.setListData(selectedCamera.getPresets().toTypedArray())
+        logger.info("Loading camera presets for camera: ${selectedCamera.name}")
+        try {
+            Thread {
+                cameraPresetList.setListData(selectedCamera.getPresets().toTypedArray())
+            }.start()
+        } catch (e: Exception) {
+            logger.severe("Failed to start tread for getting camera presets")
+            e.printStackTrace()
+            Notifications.add("Could not get preset from camera: ${e.localizedMessage}", "IP Camera")
+        }
     }
 }

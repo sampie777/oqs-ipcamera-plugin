@@ -39,6 +39,19 @@ class IpCameraActionQueItem(
         logger.info("Activating item on url: $actionUrl")
 
         try {
+            Thread {
+                asyncActivate(camera)
+            }.start()
+        } catch (e: Exception) {
+            logger.warning("Failed to create thread for activating command '$name'")
+            e.printStackTrace()
+            Notifications.add("Failed to activate command '$name': ${e.localizedMessage}", "IP Camera")
+        }
+    }
+
+    fun asyncActivate(camera: Camera) {
+        logger.info("Async activating item")
+        try {
             if (camera is DahuaCamera) {
                 camera.apiGet(actionUrl)
             } else {

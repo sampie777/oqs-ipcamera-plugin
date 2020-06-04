@@ -45,12 +45,12 @@ class IpCameraActionQueItemTest {
     }
 
     @Test
-    fun testActivateWithMockCamera() {
+    fun testAsyncActivateWithMockCamera() {
         val plugin = IpCameraPlugin()
         val queItem = IpCameraActionQueItem(plugin, "preset 1", CameraMock(), "/actionurl")
 
         try {
-            queItem.activate()
+            queItem.asyncActivate(queItem.camera)
             fail("Expected NotImplementedError to be thrown")
         } catch (e: NotImplementedError) {
         }
