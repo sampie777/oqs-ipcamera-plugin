@@ -3,6 +3,7 @@ package nl.sajansen.ipcamera.queItems
 import nl.sajansen.ipcamera.IpCameraPlugin
 import nl.sajansen.ipcamera.cameras.Camera
 import nl.sajansen.ipcamera.cameras.DahuaCamera
+import nl.sajansen.ipcamera.cameras.SchaapsoundCamera
 import objects.notifications.Notifications
 import objects.que.JsonQue
 import objects.que.QueItem
@@ -53,6 +54,8 @@ class IpCameraActionQueItem(
         logger.info("Async activating item")
         try {
             if (camera is DahuaCamera) {
+                camera.apiGet(actionUrl)
+            } else if (camera is SchaapsoundCamera) {
                 camera.apiGet(actionUrl)
             } else {
                 throw NotImplementedError("Default activation of presets is not yet implemented")

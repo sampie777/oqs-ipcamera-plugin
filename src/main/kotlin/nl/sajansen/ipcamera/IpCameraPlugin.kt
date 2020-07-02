@@ -2,6 +2,7 @@ package nl.sajansen.ipcamera
 
 import nl.sajansen.ipcamera.cameras.Camera
 import nl.sajansen.ipcamera.cameras.DahuaCamera
+import nl.sajansen.ipcamera.cameras.SchaapsoundCamera
 import nl.sajansen.ipcamera.queItems.IpCameraActionQueItem
 import objects.que.JsonQue
 import objects.que.QueItem
@@ -25,7 +26,10 @@ class IpCameraPlugin : QueItemBasePlugin {
 
     internal val quickAccessColor = Color(229, 255, 247)
 
-    val cameras = listOf(DahuaCamera() as Camera)
+    val cameras = listOf(
+        DahuaCamera() as Camera,
+        SchaapsoundCamera() as Camera
+    )
 
     override fun sourcePanel(): JComponent {
         return SourcePanel(this)
