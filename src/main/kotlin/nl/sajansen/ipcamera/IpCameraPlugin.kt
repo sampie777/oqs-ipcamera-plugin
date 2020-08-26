@@ -4,7 +4,7 @@ import nl.sajansen.ipcamera.cameras.Camera
 import nl.sajansen.ipcamera.cameras.DahuaCamera
 import nl.sajansen.ipcamera.cameras.SchaapsoundCamera
 import nl.sajansen.ipcamera.queItems.IpCameraActionQueItem
-import objects.que.JsonQue
+import objects.que.JsonQueue
 import objects.que.QueItem
 import plugins.common.QueItemBasePlugin
 import java.awt.Color
@@ -39,7 +39,7 @@ class IpCameraPlugin : QueItemBasePlugin {
         throw NotImplementedError("This method is deprecated")
     }
 
-    override fun jsonToQueItem(jsonQueItem: JsonQue.QueItem): QueItem {
+    override fun jsonToQueItem(jsonQueItem: JsonQueue.QueueItem): QueItem {
         return when (jsonQueItem.className) {
             IpCameraActionQueItem::class.java.simpleName -> IpCameraActionQueItem.fromJson(this, jsonQueItem)
             else -> throw IllegalArgumentException("Invalid $name queue item: ${jsonQueItem.className}")

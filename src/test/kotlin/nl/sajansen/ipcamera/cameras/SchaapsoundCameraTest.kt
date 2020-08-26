@@ -11,7 +11,7 @@ class SchaapsoundCameraTest {
     fun testGetPresetQueItem() {
         val item = SchaapsoundCamera().getPresetQueItem(IpCameraPlugin(), CameraPreset("3", "Preset 3"))
 
-        assertEquals("Preset 3", item.name)
+        assertEquals("[Schaapsound] Preset 3", item.name)
         assertEquals("/cgi-bin/ptzctrl.cgi?ptzcmd&poscall&3", item.actionUrl)
     }
 }

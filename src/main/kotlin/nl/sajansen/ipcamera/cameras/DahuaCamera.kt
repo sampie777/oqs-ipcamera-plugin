@@ -42,7 +42,7 @@ class DahuaCamera : Camera {
     override fun getPresetQueItem(plugin: IpCameraPlugin, preset: CameraPreset): IpCameraActionQueItem {
         return IpCameraActionQueItem(
             plugin,
-            name = preset.title,
+            name = "[$name] ${preset.title}",
             camera = this,
             actionUrl = "/cgi-bin/ptz.cgi?action=start&channel=0&code=GotoPreset&arg1=0&arg2=${preset.id}&arg3=0"
         )

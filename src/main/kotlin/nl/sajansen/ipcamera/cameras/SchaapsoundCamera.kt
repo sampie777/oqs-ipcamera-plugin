@@ -30,7 +30,7 @@ class SchaapsoundCamera : Camera {
     override fun getPresetQueItem(plugin: IpCameraPlugin, preset: CameraPreset): IpCameraActionQueItem {
         return IpCameraActionQueItem(
             plugin,
-            name = preset.title,
+            name = "[$name] ${preset.title}",
             camera = this,
             actionUrl = "/cgi-bin/ptzctrl.cgi?ptzcmd&poscall&${preset.id}"
         )

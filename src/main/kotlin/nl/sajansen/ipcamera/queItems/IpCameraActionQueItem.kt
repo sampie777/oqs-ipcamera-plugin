@@ -5,7 +5,7 @@ import nl.sajansen.ipcamera.cameras.Camera
 import nl.sajansen.ipcamera.cameras.DahuaCamera
 import nl.sajansen.ipcamera.cameras.SchaapsoundCamera
 import objects.notifications.Notifications
-import objects.que.JsonQue
+import objects.que.JsonQueue
 import objects.que.QueItem
 import java.awt.Color
 import java.util.logging.Logger
@@ -20,7 +20,7 @@ class IpCameraActionQueItem(
     private val logger = Logger.getLogger(IpCameraActionQueItem::class.java.name)
 
     companion object {
-        fun fromJson(plugin: IpCameraPlugin, jsonQueItem: JsonQue.QueItem): IpCameraActionQueItem {
+        fun fromJson(plugin: IpCameraPlugin, jsonQueItem: JsonQueue.QueueItem): IpCameraActionQueItem {
             val camera = plugin.cameras.find { it.name == jsonQueItem.data["camera"]!! } as Camera
             return IpCameraActionQueItem(
                 plugin,
@@ -73,7 +73,7 @@ class IpCameraActionQueItem(
         throw NotImplementedError("This method is deprecated")
     }
 
-    override fun toJson(): JsonQue.QueItem {
+    override fun toJson(): JsonQueue.QueueItem {
         val jsonItem = super.toJson()
         jsonItem.data["camera"] = camera.name
         jsonItem.data["actionUrl"] = actionUrl

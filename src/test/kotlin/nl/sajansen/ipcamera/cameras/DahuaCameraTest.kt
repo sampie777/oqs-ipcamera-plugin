@@ -48,7 +48,7 @@ presets[6].Name=Uitgezoomd
     fun testGetPresetQueItem() {
         val item = DahuaCamera().getPresetQueItem(IpCameraPlugin(), CameraPreset("3", "Preset 3"))
 
-        assertEquals("Preset 3", item.name)
+        assertEquals("[Dahua] Preset 3", item.name)
         assertEquals("/cgi-bin/ptz.cgi?action=start&channel=0&code=GotoPreset&arg1=0&arg2=3&arg3=0", item.actionUrl)
     }
 }

@@ -2,9 +2,10 @@ package nl.sajansen.ipcamera.queItems
 
 import nl.sajansen.ipcamera.IpCameraPlugin
 import nl.sajansen.ipcamera.cameras.CameraMock
-import objects.que.JsonQue
+import objects.que.JsonQueue
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import kotlin.test.fail
 
 class IpCameraActionQueItemTest {
@@ -26,7 +27,7 @@ class IpCameraActionQueItemTest {
     fun testFromJson() {
         val plugin = IpCameraPlugin()
         val camera = plugin.cameras.first()
-        val jsonQueItem = JsonQue.QueItem(
+        val jsonQueItem = JsonQueue.QueueItem(
                 "IpCameraPlugin",
                 "IpCameraActionQueItem",
                 "preset 1",
